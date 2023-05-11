@@ -10,13 +10,13 @@ namespace EFDemo_CRUD
             BatchDbContext db = new BatchDbContext();
             // insert record
             Batch batch = new Batch()
-            { Name = "B001", Description = "new batch", StartDate = Convert.ToDateTime("12/12/2022") };
+            { Name = "B002", Description = null,Trainer="XYZ", StartDate = Convert.ToDateTime("12/12/2022") };
             db.Batches.Add(batch);
             db.SaveChanges();
 
             // Delete Record
             Batch b = db.Batches.Where(x =>
-            x.Id == 1).FirstOrDefault();
+            x.BatchCode == 1).FirstOrDefault();
             if (b != null)
             { 
                 db.Batches.Remove(b);
@@ -27,14 +27,14 @@ namespace EFDemo_CRUD
 
             // Edit Record
 
-            Batch bobj = db.Batches.Where(x => x.Id == 2)
+            Batch bobj = db.Batches.Where(x => x.BatchCode == 2)
                    .FirstOrDefault();
 
             if(bobj!=null)
             {
  foreach(Batch temp in db.Batches)
                 {
-                    if (temp.Id == bobj.Id)
+                    if (temp.BatchCode == bobj.BatchCode)
                     {
                         temp.StartDate = Convert.ToDateTime(DateTime.Now);
                         temp.Description = "its a new batch";
@@ -52,7 +52,7 @@ namespace EFDemo_CRUD
             list = db.Batches.ToList();
             foreach (Batch temp in list)
             {
-                Console.WriteLine($"{temp.Id} -- {temp.Name} -- {temp.Description} -- {temp.StartDate}");
+                Console.WriteLine($"{temp.BatchCode} -- {temp.Name} -- {temp.Description} -- {temp.StartDate}");
             }
 
 

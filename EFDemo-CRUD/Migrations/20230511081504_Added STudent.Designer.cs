@@ -4,6 +4,7 @@ using EFDemo_CRUD.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDemo_CRUD.Migrations
 {
     [DbContext(typeof(BatchDbContext))]
-    partial class BatchDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230511081504_Added STudent")]
+    partial class AddedSTudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,31 +62,6 @@ namespace EFDemo_CRUD.Migrations
                     b.HasKey("BatchCode");
 
                     b.ToTable("tblBatches");
-                });
-
-            modelBuilder.Entity("EFDemo_CRUD.Models.Grade", b =>
-                {
-                    b.Property<int>("GradeCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Grade");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeCode"));
-
-                    b.Property<string>("GradeName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("G1")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("Section")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GradeCode");
-
-                    b.ToTable("Grade");
                 });
 
             modelBuilder.Entity("EFDemo_CRUD.Models.Student", b =>

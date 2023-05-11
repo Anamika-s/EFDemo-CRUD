@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFDemo_CRUD.Migrations
 {
     [DbContext(typeof(BatchDbContext))]
-    [Migration("20230511053108_start")]
-    partial class start
+    [Migration("20230511080146_Start")]
+    partial class Start
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,15 @@ namespace EFDemo_CRUD.Migrations
 
             modelBuilder.Entity("EFDemo_CRUD.Models.Batch", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BatchCode")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatchCode"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -39,14 +43,21 @@ namespace EFDemo_CRUD.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("BatchName");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Trainer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TrainerName");
 
-                    b.ToTable("Batches");
+                    b.HasKey("BatchCode");
+
+                    b.ToTable("tblBatches");
                 });
 #pragma warning restore 612, 618
         }
